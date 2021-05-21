@@ -1,7 +1,10 @@
 package com.bank.beans;
+
 import com.bank.beans.*;
 import java.io.*;
-public class Employee implements Serializable{
+import java.util.ArrayList;
+
+public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String userName;
 	private String passWord;
@@ -58,5 +61,32 @@ public class Employee implements Serializable{
 			System.exit(0);
 		} else
 			this.lastName = lastName;
+	}
+
+	public void viewCustomerInfo(String userName) {
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("Account.txt"));
+			ArrayList<Account> account = new ArrayList<Account>();
+			account = (ArrayList<Account>) in.readObject();
+			ObjectInputStream in1 = new ObjectInputStream(new FileInputStream("Customer.txt"));
+			ArrayList<Customer> cust = new ArrayList<Customer>();
+			cust = (ArrayList<Customer>) in1.readObject();
+			for (Account c : account) {
+				if (c.getUserName().equals(userName.trim())) {
+					System.out.print(c);
+					System.out.print(" ");
+					for(Customer cus:cust) {
+						if (cus.getUserName().equals(userName.trim())) {
+							System.out.println(cus);
+							break;
+						}
+					}
+				}
+			}
+			in.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+			System.exit(0);
+		}
 	}
 }
