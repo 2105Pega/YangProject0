@@ -46,12 +46,7 @@ public class Account implements Serializable{
 	}
 	
 	public void deposit(double amount) {
-		if(this.balance<amount)
-		{
-			System.out.println("Your balance is insufficient!");
-			System.exit(0);
-		}
-		else if (amount<0)
+		if (amount<0)
 		{
 			System.out.println("Please enter a valid positive amount!");
 			System.exit(0);
